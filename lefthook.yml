@@ -41,7 +41,7 @@ pre-commit:
 #       runner: go run
 
     - name: lint
-      run: pnpm run lint {staged_files}
+      run: pnpm run lint {all_files}
 
     - name: format
-      run: pnpm run format {staged_files}
+      run: pnpm run format {all_files}
