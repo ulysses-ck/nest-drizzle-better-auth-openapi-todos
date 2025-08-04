@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
-import type { CreateTodoDto, UpdateTodoDto } from "./dto/todo.dto";
-import type { TodoRepository } from "./todo.repository";
+import { Injectable, NotFoundException } from '@nestjs/common';
+import type { CreateTodoDto, UpdateTodoDto } from './dto/todo.dto';
+import type { TodoRepository } from './todo.repository';
 
 @Injectable()
 export class TodosService {
@@ -10,7 +10,7 @@ export class TodosService {
 		const todo = await this.todoRepository.findOne(id);
 
 		if (!todo) {
-			throw new NotFoundException("Todo was not found");
+			throw new NotFoundException('Todo was not found');
 		}
 
 		return todo;
