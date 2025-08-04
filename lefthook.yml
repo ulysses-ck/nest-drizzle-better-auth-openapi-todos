@@ -42,6 +42,8 @@ pre-commit:
 
     - name: lint
       run: pnpm run lint {all_files}
+      glob: "./src/**/*.ts"
 
     - name: format
       run: pnpm run format {all_files}
+      glob: "./src/**/*.ts"
