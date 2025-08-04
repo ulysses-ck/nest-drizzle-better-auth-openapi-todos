@@ -41,9 +41,11 @@ pre-commit:
 #       runner: go run
 
     - name: lint
-      run: pnpm run lint {staged_files} --write --linter-enabled=false
-      glob: "./src/**/*.ts"
+      run: pnpm run lint {all_files}
+      glob: "*.ts"
+      exclude: ".sql"
 
     - name: format
-      run: pnpm run format {staged_files}
-      glob: "./src/**/*.ts"
+      run: pnpm run format {all_files} --linter-enabled=false --write
+      glob: "*.ts"
+      exclude: ".sql"
