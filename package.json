@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "format": "biome format --write",
+    "format": "biome check --write --linter-enabled=false",
     "lint": "oxlint",
     "start": "nest start",
     "start:dev": "nest start --watch",
