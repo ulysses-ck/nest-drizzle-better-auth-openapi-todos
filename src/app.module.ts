@@ -4,10 +4,9 @@ import { TransactionalAdapterDrizzleOrm } from '@nestjs-cls/transactional-adapte
 import { ClsModule } from 'nestjs-cls';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TodosController } from './controllers/todos/todos.controller';
 import { DbModule } from './db/db.module';
 import { DB_PROVIDER } from './db/db.provider';
-import { TodosService } from './providers/todos/todos.service';
+import { TodosModule } from './todos/todos.module';
 
 @Module({
 	imports: [
@@ -23,8 +22,9 @@ import { TodosService } from './providers/todos/todos.service';
 				}),
 			],
 		}),
+		TodosModule,
 	],
-	controllers: [AppController, TodosController],
-	providers: [AppService, TodosService],
+	controllers: [AppController],
+	providers: [AppService],
 })
 export class AppModule {}
