@@ -3,12 +3,13 @@ import type { TransactionHost } from '@nestjs-cls/transactional';
 import { eq } from 'drizzle-orm';
 import type { DbTransactionAdapter } from 'src/db/client';
 import { todoTable } from 'src/db/schema';
+import type { InsertTodoDto, UpdateTodoDto } from 'src/db/zod-schema';
 
 @Injectable()
 export class TodoRepository {
 	constructor(private readonly txHost: TransactionHost<DbTransactionAdapter>) {}
 
-	async find(id: string) {
+	async findById(id: string) {
 		const [todo] = await this.txHost.tx
 			.select()
 			.from(todoTable)
@@ -21,19 +22,15 @@ export class TodoRepository {
 		return todo;
 	}
 
-	async all() {
+	async findAll() {
 		return this.txHost.tx.select().from(todoTable);
 	}
 
-	async createTodo(values: { isCompleted: boolean; text: string }) {
+	async createTodo(values: InsertTodoDto) {
 		const [todo] = await this.txHost.tx
 			.insert(todoTable)
 			.values({ ...values })
-			.returning({ id: todoTable.id });
-
-		if (!todo.id) {
-			return null;
-		}
+			.returning();
 
 		return todo;
 	}
@@ -49,5 +46,11 @@ export class TodoRepository {
 		}
 
 		return todoRemoved;
+	}
+
+	async updateTodo(values: UpdateTodoDto) {
+		const todo = await this.txHost.tx.update(todoTable).set(values);
+
+		return todo;
 	}
 }
