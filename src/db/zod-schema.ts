@@ -1,4 +1,8 @@
-import { createInsertSchema, createSelectSchema, createUpdateSchema } from 'drizzle-zod';
+import {
+	createInsertSchema,
+	createSelectSchema,
+	createUpdateSchema,
+} from 'drizzle-zod';
 import type z from 'zod';
 import { todoTable } from './schema';
 
