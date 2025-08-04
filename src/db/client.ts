@@ -1,6 +1,6 @@
-import type { TransactionalAdapterDrizzleOrm } from "@nestjs-cls/transactional-adapter-drizzle-orm";
-import "dotenv/config";
-import { drizzle } from "drizzle-orm/node-postgres";
+import type { TransactionalAdapterDrizzleOrm } from '@nestjs-cls/transactional-adapter-drizzle-orm';
+import 'dotenv/config';
+import { drizzle } from 'drizzle-orm/node-postgres';
 
 const db = drizzle(process.env.DB_URL!);
 
