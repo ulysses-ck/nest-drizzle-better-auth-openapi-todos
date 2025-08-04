@@ -27,10 +27,12 @@
     "@nestjs/platform-express": "^11.0.1",
     "dotenv": "^17.2.1",
     "drizzle-orm": "^0.44.4",
+    "drizzle-zod": "^0.8.2",
     "nestjs-cls": "^6.0.1",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "zod": "^4.0.14"
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.3",
