@@ -9,7 +9,7 @@ import type { InsertTodoDto, UpdateTodoDto } from 'src/db/zod-schema';
 export class TodoRepository {
 	constructor(private readonly txHost: TransactionHost<DbTransactionAdapter>) {}
 
-	async findById(id: string) {
+	async findOne(id: string) {
 		const [todo] = await this.txHost.tx
 			.select()
 			.from(todoTable)
@@ -26,7 +26,7 @@ export class TodoRepository {
 		return this.txHost.tx.select().from(todoTable);
 	}
 
-	async createTodo(values: InsertTodoDto) {
+	async create(values: InsertTodoDto) {
 		const [todo] = await this.txHost.tx
 			.insert(todoTable)
 			.values({ ...values })
@@ -35,10 +35,10 @@ export class TodoRepository {
 		return todo;
 	}
 
-	async removeTodo(values: { id: string }) {
+	async remove(id: string) {
 		const [todoRemoved] = await this.txHost.tx
 			.delete(todoTable)
-			.where(eq(todoTable.id, values.id))
+			.where(eq(todoTable.id, id))
 			.returning({ id: todoTable.id });
 
 		if (!todoRemoved.id) {
@@ -48,8 +48,11 @@ export class TodoRepository {
 		return todoRemoved;
 	}
 
-	async updateTodo(values: UpdateTodoDto) {
-		const todo = await this.txHost.tx.update(todoTable).set(values);
+	async update(id: string, values: UpdateTodoDto) {
+		const todo = await this.txHost.tx
+			.update(todoTable)
+			.set(values)
+			.where(eq(todoTable.id, id));
 
 		return todo;
 	}

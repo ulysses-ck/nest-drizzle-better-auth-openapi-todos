@@ -6,8 +6,8 @@ import type { TodoRepository } from 'src/modules/todo/todo.repository';
 export class TodosService {
 	constructor(private readonly todoRepository: TodoRepository) {}
 
-	async findById(id: string) {
-		const todo = await this.todoRepository.findById(id);
+	async findOne(id: string) {
+		const todo = await this.todoRepository.findOne(id);
 
 		if (!todo) {
 			throw new NotFoundException('Todo was not found');
@@ -16,26 +16,26 @@ export class TodosService {
 		return todo;
 	}
 
-	async createTodo(values: CreateTodoDto) {
-		const todo = await this.todoRepository.createTodo(values);
+	async create(values: CreateTodoDto) {
+		const todo = await this.todoRepository.create(values);
 		return todo;
 	}
 
-	async removeTodo(values: { id: string }) {
-		const todoRemoved = await this.todoRepository.removeTodo(values);
+	async remove(id: string) {
+		const todoRemoved = await this.todoRepository.remove(id);
 
 		if (!todoRemoved) throw new NotFoundException();
 
 		return todoRemoved;
 	}
 
-	async getAllTodos() {
+	async findAll() {
 		const todos = await this.todoRepository.findAll();
 		return todos;
 	}
 
-	async updateTodo(values: UpdateTodoDto) {
-		const todoUpdated = await this.todoRepository.updateTodo(values);
+	async update(id: string, values: UpdateTodoDto) {
+		const todoUpdated = await this.todoRepository.update(id, values);
 
 		return todoUpdated;
 	}
