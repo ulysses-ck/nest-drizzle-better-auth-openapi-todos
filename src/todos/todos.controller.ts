@@ -1,4 +1,3 @@
-import { ZodValidationPipe } from '@/zod-validation/zod-validation.pipe';
 import {
 	Body,
 	Controller,
@@ -11,6 +10,7 @@ import {
 	UsePipes,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ZodValidationPipe } from '@/zod-validation/zod-validation.pipe';
 import {
 	CreateTodoDto,
 	createTodoSchema,
@@ -36,7 +36,7 @@ export class TodosController {
 	})
 	@ApiBody({
 		type: CreateTodoDto,
-		description: "A todo"
+		description: 'A todo',
 	})
 	async create(@Body() createTodoDto: CreateTodoDto) {
 		const todoCreated = await this.todosService.create(createTodoDto);

@@ -1,5 +1,5 @@
-import { todoTable } from "@/todos/entities/todo.entity";
-import { createInsertSchema, createUpdateSchema } from "drizzle-zod";
+import { createInsertSchema, createUpdateSchema } from 'drizzle-zod';
+import { todoTable } from '@/todos/entities/todo.entity';
 
 export class UpdateTodoDto {
 	readonly text: string;
