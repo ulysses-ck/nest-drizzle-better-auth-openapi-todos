@@ -2,11 +2,13 @@ import type { TransactionalAdapterDrizzleOrm } from '@nestjs-cls/transactional-a
 import { todoTable } from '@/todos/entities/todo.entity';
 import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/node-postgres';
+import * as authSchema from './auth-schema';
 
 const db = drizzle({
 	connection: process.env.DATABASE_URL!,
 	schema: {
 		todoTable,
+		authSchema,
 	},
 });
 
