@@ -1,3 +1,4 @@
+import { ZodValidationPipe } from '@/zod-validation/zod-validation.pipe';
 import {
 	Body,
 	Controller,
@@ -7,10 +8,17 @@ import {
 	Param,
 	Patch,
 	Post,
+	UsePipes,
 } from '@nestjs/common';
-import type { CreateTodoDto, UpdateTodoDto } from './dto/todo.dto';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+	CreateTodoDto,
+	createTodoSchema,
+	type UpdateTodoDto,
+} from './dto/todo.dto';
 import { TodosService } from './todos.service';
 
+@ApiTags('Todos')
 @Controller('todos')
 export class TodosController {
 	constructor(
@@ -18,27 +26,45 @@ export class TodosController {
 	) {}
 
 	@Post()
-	create(@Body() createTodoDto: CreateTodoDto) {
-		return this.todosService.create(createTodoDto);
+	@UsePipes(new ZodValidationPipe(createTodoSchema))
+	@ApiOperation({
+		summary: 'Create a todo',
+	})
+	@ApiResponse({
+		status: 201,
+		description: 'Returns a todo',
+	})
+	@ApiBody({
+		type: CreateTodoDto,
+		description: "A todo"
+	})
+	async create(@Body() createTodoDto: CreateTodoDto) {
+		const todoCreated = await this.todosService.create(createTodoDto);
+		return todoCreated;
 	}
 
 	@Get()
-	findAll() {
-		return this.todosService.findAll();
+	async findAll() {
+		const todos = await this.todosService.findAll();
+		return todos;
 	}
 
 	@Get(':id')
-	findOne(@Param('id') id: string) {
-		return this.todosService.findOne(id);
+	async findOne(@Param('id') id: string) {
+		const todo = await this.todosService.findOne(id);
+		return todo;
 	}
 
 	@Patch(':id')
-	update(@Param('id') id: string, @Body() updateTodoDto: UpdateTodoDto) {
-		return this.todosService.update(id, updateTodoDto);
+	@UsePipes(new ZodValidationPipe(createTodoSchema))
+	async update(@Param('id') id: string, @Body() updateTodoDto: UpdateTodoDto) {
+		const updatedTodo = await this.todosService.update(id, updateTodoDto);
+		return updatedTodo;
 	}
 
 	@Delete(':id')
-	remove(@Param('id') id: string) {
-		return this.todosService.remove(id);
+	async remove(@Param('id') id: string) {
+		const todo = await this.todosService.remove(id);
+		return todo;
 	}
 }
