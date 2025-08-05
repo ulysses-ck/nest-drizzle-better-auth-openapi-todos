@@ -15,6 +15,13 @@
       "when": 1754343380594,
       "tag": "0001_lively_morph",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1754403332117,
+      "tag": "0002_chief_living_lightning",
+      "breakpoints": true
     }
   ]
 }
