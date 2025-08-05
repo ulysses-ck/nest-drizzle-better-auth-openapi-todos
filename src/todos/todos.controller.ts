@@ -34,10 +34,6 @@ export class TodosController {
 		status: 201,
 		description: 'Returns a todo',
 	})
-	@ApiBody({
-		type: CreateTodoDto,
-		description: 'A todo',
-	})
 	async create(@Body() createTodoDto: CreateTodoDto) {
 		const todoCreated = await this.todosService.create(createTodoDto);
 		return todoCreated;
