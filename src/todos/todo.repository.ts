@@ -1,13 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import type { TransactionHost } from '@nestjs-cls/transactional';
 import { eq } from 'drizzle-orm';
 import type { DbTransactionAdapter } from 'src/db/client';
 import type { InsertTodoDto, UpdateTodoDto } from 'src/todos/dto/todo.dto';
+import { DB_PROVIDER } from '@/db/db.provider';
 import { todoTable } from './entities/todo.entity';
 
 @Injectable()
 export class TodoRepository {
-	constructor(private readonly txHost: TransactionHost<DbTransactionAdapter>) {}
+	constructor(
+		@Inject(DB_PROVIDER)
+		private readonly txHost: TransactionHost<DbTransactionAdapter>,
+	) {}
 
 	async findOne(id: string) {
 		const [todo] = await this.txHost.tx
