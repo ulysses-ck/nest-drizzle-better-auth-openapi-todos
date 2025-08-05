@@ -1,6 +1,6 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { createInsertSchema, createUpdateSchema } from 'drizzle-zod';
 import { todoTable } from '@/todos/entities/todo.entity';
-import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateTodoDto {
 	@ApiProperty()
@@ -10,13 +10,13 @@ export class UpdateTodoDto {
 }
 export class CreateTodoDto {
 	@ApiProperty({
-		example: "Reads mail",
-		description: "Todo title"
+		example: 'Reads mail',
+		description: 'Todo title',
 	})
 	readonly text: string;
 	@ApiProperty({
 		example: false,
-		description: "Wether todo is completed or not"
+		description: 'Wether todo is completed or not',
 	})
 	readonly isCompleted: boolean;
 }
