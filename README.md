@@ -32,4 +32,4 @@ pnpm install
 ````
 
 ## Configuration
-There is a `.env.template` with a placeholder that needs to replace placeholders.
+There is a `.env.template` with placeholders that needs to be fullfilled.
