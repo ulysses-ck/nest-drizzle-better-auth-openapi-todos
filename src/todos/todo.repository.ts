@@ -1,15 +1,17 @@
-import { Inject, Injectable } from '@nestjs/common';
-import type { TransactionHost } from '@nestjs-cls/transactional';
+import { Injectable } from '@nestjs/common';
+import {
+	InjectTransactionHost,
+	type TransactionHost,
+} from '@nestjs-cls/transactional';
 import { eq } from 'drizzle-orm';
 import type { DbTransactionAdapter } from 'src/db/client';
-import type { InsertTodoDto, UpdateTodoDto } from 'src/todos/dto/todo.dto';
-import { DB_PROVIDER } from '@/db/db.provider';
+import type { CreateTodoDto, UpdateTodoDto } from './dto/todo.dto';
 import { todoTable } from './entities/todo.entity';
 
 @Injectable()
 export class TodoRepository {
 	constructor(
-		@Inject(DB_PROVIDER)
+		@InjectTransactionHost()
 		private readonly txHost: TransactionHost<DbTransactionAdapter>,
 	) {}
 
@@ -30,10 +32,12 @@ export class TodoRepository {
 		return this.txHost.tx.select().from(todoTable);
 	}
 
-	async create(values: InsertTodoDto) {
+	async create(values: CreateTodoDto) {
 		const [todo] = await this.txHost.tx
 			.insert(todoTable)
-			.values({ ...values })
+			.values({
+				...values,
+			})
 			.returning();
 
 		return todo;
