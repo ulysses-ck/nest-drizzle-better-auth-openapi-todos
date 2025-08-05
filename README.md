@@ -15,6 +15,10 @@ This repository serves as a starter with [NestJS](https://github.com/nestjs/nest
 - biome
 - oxlint
 
+## OpenAPI
+- App: `http://localhost:3000/api`
+- BetterAuth: `http://localhost:3000/api/auth/reference`
+
 
 ## Requirements
 
