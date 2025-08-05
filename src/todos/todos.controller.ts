@@ -9,10 +9,10 @@ import {
 	Post,
 	UsePipes,
 } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ZodValidationPipe } from '@/zod-validation/zod-validation.pipe';
 import {
-	CreateTodoDto,
+	type CreateTodoDto,
 	createTodoSchema,
 	type UpdateTodoDto,
 } from './dto/todo.dto';
