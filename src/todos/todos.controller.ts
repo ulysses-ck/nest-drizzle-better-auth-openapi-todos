@@ -10,7 +10,12 @@ import {
 	UseGuards,
 	UsePipes,
 } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+	ApiCookieAuth,
+	ApiOperation,
+	ApiResponse,
+	ApiTags,
+} from '@nestjs/swagger';
 import { AuthGuard } from '@thallesp/nestjs-better-auth';
 import { ZodValidationPipe } from '@/zod-validation/zod-validation.pipe';
 import {
@@ -36,6 +41,7 @@ export class TodosController {
 		status: 201,
 		description: 'Returns a todo',
 	})
+	@ApiCookieAuth()
 	@UseGuards(AuthGuard)
 	async create(@Body() createTodoDto: CreateTodoDto) {
 		const todoCreated = await this.todosService.create(createTodoDto);

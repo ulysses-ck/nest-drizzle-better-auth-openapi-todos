@@ -12,6 +12,7 @@ async function bootstrap() {
 		.setDescription('The Todos API description')
 		.setVersion('1.0')
 		.addTag('todos')
+		.addCookieAuth('better-auth.session-token')
 		.build();
 
 	const documentFactory = () => SwaggerModule.createDocument(app, config);
